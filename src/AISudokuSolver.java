@@ -35,7 +35,7 @@ public class AISudokuSolver {
         // Variable(s)
         int puzzleEasy[];
         int puzzleIntermediate[] = new int[CELLS];
-        int puzzleHard[] = new int[CELLS];
+        int puzzleDifficult[] = new int[CELLS];
 
         // Known Puzzles //
         // Easy Puzzle //
@@ -61,7 +61,7 @@ public class AISudokuSolver {
                                7, 0, 3, 0, 1, 8, 0, 0, 0};
 
     
-        // Intermediate Puzzle
+        // Intermediate Puzzle //
         // Puzzle                                    -->     Solution
         // | 0 | 2 | 0 | 6 | 0 | 8 | 0 | 0 | 0 |     -->     | 1 | 2 | 3 | 6 | 7 | 8 | 9 | 4 | 5 |     
         // | 5 | 8 | 0 | 0 | 0 | 9 | 7 | 0 | 0 |     -->     | 5 | 8 | 4 | 2 | 3 | 9 | 7 | 6 | 1 |  
@@ -83,9 +83,33 @@ public class AISudokuSolver {
                                        0, 0, 9, 8, 0, 0, 0, 3, 6,
                                        0, 0, 0, 3, 0, 6, 0, 9, 0};
 
+        
+        // Difficult Puzzle //
+        // Puzzle                                    -->     Solution
+        // | 0 | 0 | 0 | 6 | 0 | 0 | 4 | 0 | 0 |     -->     | 5 | 8 | 1 | 6 | 7 | 2 | 4 | 3 | 9 |     
+        // | 7 | 0 | 0 | 0 | 0 | 3 | 6 | 0 | 0 |     -->     | 7 | 9 | 2 | 8 | 4 | 3 | 6 | 5 | 1 |  
+        // | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 8 | 0 |     -->     | 3 | 6 | 4 | 5 | 9 | 1 | 7 | 8 | 2 |
+        // | 0 | 0 | 0 | 0 | 9 | 0 | 0 | 0 | 0 |     -->     | 4 | 3 | 8 | 9 | 5 | 7 | 2 | 1 | 6 | 
+        // | 0 | 5 | 0 | 1 | 9 | 0 | 0 | 0 | 3 |     -->     | 2 | 5 | 6 | 1 | 8 | 4 | 9 | 7 | 3 | 
+        // | 0 | 0 | 0 | 3 | 8 | 6 | 0 | 4 | 5 |     -->     | 1 | 7 | 9 | 3 | 2 | 6 | 8 | 4 | 5 |
+        // | 0 | 4 | 0 | 2 | 0 | 0 | 0 | 6 | 0 |     -->     | 8 | 4 | 5 | 2 | 1 | 9 | 3 | 6 | 7 | 
+        // | 9 | 0 | 3 | 0 | 0 | 0 | 0 | 0 | 0 |     -->     | 9 | 1 | 3 | 7 | 6 | 8 | 5 | 2 | 4 | 
+        // | 0 | 2 | 0 | 0 | 0 | 0 | 1 | 0 | 0 |     -->     | 6 | 2 | 7 | 4 | 3 | 5 | 1 | 9 | 8 |
+        
+        puzzleDifficult = new int[]{0, 0, 0, 6, 0, 0, 4, 0, 0,
+                                    7, 0, 0, 0, 0, 3, 6, 0, 0,
+                                    0, 0, 0, 0, 9, 1, 0, 8, 0,
+                                    0, 0, 0, 0, 0, 0, 0, 0, 0,
+                                    0, 5, 0, 1, 8, 0, 0, 0, 3,
+                                    0, 0, 0, 3, 0, 6, 0, 4, 5,
+                                    0, 4, 0, 2, 0, 0, 0, 6, 0,
+                                    9, 0, 3, 0, 0, 0, 0, 0, 0,
+                                    0, 2, 0, 0, 0, 0, 1, 0, 0};
+
                             
-        //return puzzleEasy;
-        return puzzleIntermediate;
+        return puzzleEasy;
+        //return puzzleIntermediate;
+        // return puzzleDifficult;
     }
 
     // manualPuzzleInput Function: Accepts user input for a manual puzzle entry.
