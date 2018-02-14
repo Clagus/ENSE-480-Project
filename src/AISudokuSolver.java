@@ -26,16 +26,19 @@ public class AISudokuSolver {
 
         printPuzzle(puzzle);
 
-        System.exit( 0 ); //success
+        System.exit(0); // End Program
     }
 
     // testPuzzles Function:
     public static int[] testPuzzles() {
         
         // Variable(s)
+        Scanner input = new Scanner(System.in);
+        int choice;
         int puzzleEasy[];
         int puzzleIntermediate[] = new int[CELLS];
         int puzzleDifficult[] = new int[CELLS];
+
 
         // Known Puzzles //
         // Easy Puzzle //
@@ -106,10 +109,27 @@ public class AISudokuSolver {
                                     9, 0, 3, 0, 0, 0, 0, 0, 0,
                                     0, 2, 0, 0, 0, 0, 1, 0, 0};
 
-                            
+        System.out.println("Which puzzle would you like to test?\n   1. Easy\n   2. Intermediate\n   3. Difficult\n"); // Prompt
+        
+        // Choice input with invalid input checking.
+        do {
+            System.out.print("Choice: "); // Input Prompt
+            while (!input.hasNextInt()) {
+                    System.out.println("Please enter one of the three choice numbers."); // Invalid input prompt.
+                    System.out.print("Choice: ");
+                    input.next();
+            }
+            choice = input.nextInt();
+
+        } while (choice <= 0); 
+
+        switch (choice) {
+            case 1: return puzzleEasy;
+            case 2: return puzzleIntermediate;
+            case 3: return puzzleDifficult;
+        }
+
         return puzzleEasy;
-        //return puzzleIntermediate;
-        // return puzzleDifficult;
     }
 
     // manualPuzzleInput Function: Accepts user input for a manual puzzle entry.
