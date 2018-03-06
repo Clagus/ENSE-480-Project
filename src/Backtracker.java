@@ -7,9 +7,10 @@
 public class Backtracker {
 	
     // Global Variables
+	public static final int SUBSIZE = 3;
     public static final int SIZE = 9;
-    public static final int CELLS = 36;
-
+    public static final int CELLS = 81;
+    
     // backtrackerSolver Function: Uses a depth-first backtracking algorithm to "brute force" a solution for a Sudoku puzzle.
 	public static boolean backtrackerSolver(int puzzle[]) {
 		
@@ -18,12 +19,10 @@ public class Backtracker {
 		int col = 0;
 		int subRow;
 		int subCol;
-		int n;
 		boolean checkEmpty = true;
 		boolean isValid;
 		boolean isSolved;
-		
-		n = (int)Math.round(Math.pow(puzzle.length, 0.25d));
+
 		
 		for (int i = 0; i < CELLS; i++) {
 			if (puzzle[i] == 0) {
@@ -39,13 +38,13 @@ public class Backtracker {
 		}
 		
 		for (int i = 1; i <= SIZE; i++) {
-			subRow = row / n;
-			subCol = col / n;
+			subRow = row / SUBSIZE;
+			subCol = col / SUBSIZE;
 			isValid = true;
 			
 			// Duplicate check for 3x3 sub-square.
-			for (int r = n * subRow; r < n * subRow + n; r++) {
-				for (int c = n * subCol; c < n * subCol + n; c++) {
+			for (int r = SUBSIZE * subRow; r < SUBSIZE * subRow + SUBSIZE; r++) {
+				for (int c = SUBSIZE * subCol; c < SUBSIZE * subCol + SUBSIZE; c++) {
 					if (puzzle[r * SIZE + col] == i) {
 						isValid = false;
 					}
@@ -71,8 +70,10 @@ public class Backtracker {
 				}
 			}
 			
+			AISudokuSolver.backtrackerIterations++;
+			
 			//AISudokuSolver.printPuzzle(puzzle);
-			System.out.println(""); // Spacer
+			//System.out.println(""); // Spacer
 		}
 		
 		return false;
