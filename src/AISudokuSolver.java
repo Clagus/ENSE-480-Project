@@ -11,21 +11,25 @@ public class AISudokuSolver {
 
     // Global Variables
     public static final int SIZE = 9;
-    public static final int CELLS = 36;
+    public static final int CELLS = 81;
+    public static int backtrackerIterations;
     
     // main Function: 
     public static void main( String[] args ) {
 
         // Variable(s)
         int puzzle[];
-        
-        System.out.println( "START" );
 
         //puzzle = manualPuzzleInput();
         puzzle = testPuzzles();
 
         printPuzzle(puzzle);
+        System.out.println("-------------------------------------\n"); // Spacer
+        
+        // Backtracker Algorithm // 
+        Backtracker.backtrackerSolver(puzzle);
 
+        
         System.exit(0); // End Program
     }
 
@@ -124,11 +128,12 @@ public class AISudokuSolver {
         } while (choice <= 0); 
 
         switch (choice) {
-            case 1: return puzzleEasy;
-            case 2: return puzzleIntermediate;
-            case 3: return puzzleDifficult;
+            case 1: System.out.println("\n--- EASY PUZZLE ---");         input.close(); return puzzleEasy;
+            case 2: System.out.println("\n--- INTERMEDIATE PUZZLE ---"); input.close(); return puzzleIntermediate;
+            case 3: System.out.println("\n--- DIFFICULT PUZZLE ---");    input.close(); return puzzleDifficult;
         }
-
+        
+        input.close();
         return puzzleEasy;
     }
 
