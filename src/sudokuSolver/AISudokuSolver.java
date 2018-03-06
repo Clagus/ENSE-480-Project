@@ -1,3 +1,4 @@
+package sudokuSolver;
 /* ENSE 480 Final Project
  * AISudokuSolver.java
  * Colin Lagus
