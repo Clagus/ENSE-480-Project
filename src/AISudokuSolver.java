@@ -11,7 +11,8 @@ public class AISudokuSolver {
 
     // Global Variables
     public static final int SIZE = 9;
-    public static final int CELLS = 36;
+    public static final int CELLS = 81;
+    public static int backtrackerIterations;
     
     // main Function: 
     public static void main( String[] args ) {
@@ -29,7 +30,7 @@ public class AISudokuSolver {
         
         // BACKTRACKER // 
         if (Backtracker.backtrackerSolver(puzzle)) {
-        	System.out.println("Puzzle was solved, here is the solution: ");
+        	System.out.println("--- Puzzle Solved! ---\nIteration Count: " + backtrackerIterations + "\nSolution:\n");
         	printPuzzle(puzzle);
         } else {
         	System.out.println("Could not solve.");

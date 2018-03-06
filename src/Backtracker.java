@@ -45,7 +45,7 @@ public class Backtracker {
 			// Duplicate check for 3x3 sub-square.
 			for (int r = SUBSIZE * subRow; r < SUBSIZE * subRow + SUBSIZE; r++) {
 				for (int c = SUBSIZE * subCol; c < SUBSIZE * subCol + SUBSIZE; c++) {
-					if (puzzle[r * SIZE + col] == i) {
+					if (puzzle[r * SIZE + c] == i) {
 						isValid = false;
 					}
 				}
