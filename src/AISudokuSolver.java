@@ -25,6 +25,15 @@ public class AISudokuSolver {
         puzzle = testPuzzles();
 
         printPuzzle(puzzle);
+        System.out.println("-------------------------------------\n"); // Spacer
+        
+        // BACKTRACKER // 
+        if (Backtracker.backtrackerSolver(puzzle)) {
+        	System.out.println("Puzzle was solved, here is the solution: ");
+        	printPuzzle(puzzle);
+        } else {
+        	System.out.println("Could not solve.");
+        }
 
         System.exit(0); // End Program
     }
@@ -124,11 +133,12 @@ public class AISudokuSolver {
         } while (choice <= 0); 
 
         switch (choice) {
-            case 1: return puzzleEasy;
-            case 2: return puzzleIntermediate;
-            case 3: return puzzleDifficult;
+            case 1: System.out.println("--- EASY PUZZLE ---");         input.close(); return puzzleEasy;
+            case 2: System.out.println("--- INTERMEDIATE PUZZLE ---"); input.close(); return puzzleIntermediate;
+            case 3: System.out.println("--- DIFFICULT PUZZLE ---");    input.close(); return puzzleDifficult;
         }
-
+        
+        input.close();
         return puzzleEasy;
     }
 
