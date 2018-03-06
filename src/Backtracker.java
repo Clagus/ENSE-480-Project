@@ -11,8 +11,20 @@ public class Backtracker {
     public static final int SIZE = 9;
     public static final int CELLS = 81;
     
-    // backtrackerSolver Function: Uses a depth-first backtracking algorithm to "brute force" a solution for a Sudoku puzzle.
-	public static boolean backtrackerSolver(int puzzle[]) {
+    // backtrackerSolver Function: Runs the algorithm and displays success/failure to the user.
+    public static void backtrackerSolver(int puzzle[]) {
+        if (backtrackerAlgorithm(puzzle)) {
+        	System.out.println("--- Puzzle Solved! ---\n"
+        			           + "Iteration Count: " + AISudokuSolver.backtrackerIterations 
+        			           + "\nSolution:\n");
+        	AISudokuSolver.printPuzzle(puzzle);
+        } else {
+        	System.out.println("The puzzle could not be solved.");
+        }
+    }
+    
+    // backtrackerAlgorithm Function: Uses a depth-first backtracking algorithm to "brute force" a solution for a Sudoku puzzle.
+	public static boolean backtrackerAlgorithm(int puzzle[]) {
 		
 		// Variables
 		int row = 0;
@@ -23,16 +35,17 @@ public class Backtracker {
 		boolean isValid;
 		boolean isSolved;
 
-		
+		// Finds empty (0 filled) cells.
 		for (int i = 0; i < CELLS; i++) {
 			if (puzzle[i] == 0) {
 				row = i / SIZE;
 				col = i % SIZE;
-				checkEmpty = false;
+				checkEmpty = false; // Puzzle contains empty cells, return false.
 				break;
 			}
 		}
 		
+		// If no empty cells, return true, indicating a solved puzzle.
 		if (checkEmpty) {
 			return true;
 		}
@@ -61,7 +74,7 @@ public class Backtracker {
 			
 			if (isValid) {
 				puzzle[row * SIZE + col] = i;
-				isSolved = backtrackerSolver(puzzle); // Recursive Call
+				isSolved = backtrackerAlgorithm(puzzle); // Recursive Call
 				
 				if (isSolved) {
 					return true;
@@ -70,8 +83,9 @@ public class Backtracker {
 				}
 			}
 			
-			AISudokuSolver.backtrackerIterations++;
+			AISudokuSolver.backtrackerIterations++; // Increment iteration counter for comparison.
 			
+			// Test lines to print puzzle as it solves.
 			//AISudokuSolver.printPuzzle(puzzle);
 			//System.out.println(""); // Spacer
 		}
