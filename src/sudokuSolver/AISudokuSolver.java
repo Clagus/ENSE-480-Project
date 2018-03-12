@@ -20,6 +20,7 @@ public class AISudokuSolver {
 
         // Variable(s)
         int puzzle[];
+        int puzzleMRV[][];
 
         //puzzle = manualPuzzleInput();
         puzzle = testPuzzles();
@@ -28,7 +29,11 @@ public class AISudokuSolver {
         System.out.println("-------------------------------------\n"); // Spacer
         
         // Backtracker Algorithm // 
-        Backtracker.backtrackerSolver(puzzle);
+        //Backtracker.backtrackerSolver(puzzle);
+        
+        // MRV Algorithm //
+        puzzleMRV = MRV.convertPuzzle2D(puzzle);
+        MRV.fillPuzzle(puzzleMRV); 
 
         
         System.exit(0); // End Program
