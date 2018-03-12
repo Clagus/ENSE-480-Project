@@ -9,16 +9,43 @@ public class MRV {
 	public static final int SUBSIZE = 3;
     public static final int SIZE = 9;
     public static final int CELLS = 81;
-    static boolean[][] r = new boolean[SIZE][SIZE + 1];
-    static boolean[][] c = new boolean[SIZE][SIZE + 1];
-    static boolean[][][] b = new boolean[SIZE][SUBSIZE][SIZE + 1];
-    static int fill;
+    
+    boolean[][] r;
+    boolean[][] c;
+    boolean[][][] b;
+    int[][] puzzle;
+    int fill;
 	
-	public static void fillPuzzle(int[][] puzzle) {
+    
+    public MRV(int[][] input) {
+        r = new boolean[SIZE][SIZE + 1];
+        c = new boolean[SIZE][SIZE + 1];
+        b = new boolean[SIZE][SUBSIZE][SIZE + 1];
+
+        puzzle = input;
+
+        for (int i = 0; i < SIZE; i++) {
+          for (int j = 0; j < SIZE; j++) {
+            int elem = puzzle[i][j];
+            
+            for (int digit = 1; digit <= SIZE; digit++) {
+              if (elem == digit) {
+                r[i][digit] = true;
+                c[j][digit] = true;
+                b[i / SUBSIZE][j / SUBSIZE][digit] = true;
+                fill++;
+              }
+            }
+          }
+        }
+      }
+    
+    
+	public void fillPuzzle() {
 		
 		// Variable(s)
 		TreeSet<Integer> remainingPossibleVal = null;
-		TreeSet<Integer> temp;
+		//TreeSet<Integer> temp;
 		int minimum = Integer.MAX_VALUE;
 		int minimumCol = -1;
 		int minimumRow = -1;
@@ -45,7 +72,7 @@ public class MRV {
 					continue;
 				}
 				
-				temp = findRemainingVal(i, j);
+				TreeSet<Integer> temp = findRemainingVal(i, j);
 				
 				if (minimum > temp.size()) {
 					minimum = temp.size();
@@ -55,7 +82,7 @@ public class MRV {
 				}
 			}
 		}
-		
+				
 		// Try possible values to fill puzzle.
 		for (Integer x:remainingPossibleVal) {
 			
@@ -66,7 +93,7 @@ public class MRV {
 			b[minimumRow / SUBSIZE][minimumCol / SUBSIZE][x] = true;
 			
 			fill++;
-			fillPuzzle(puzzle);
+			fillPuzzle();
 			fill--;
 			
 			// Reset
@@ -79,8 +106,8 @@ public class MRV {
 	}
 	
 	
-	
-	private static TreeSet<Integer> findRemainingVal(int i, int j) {
+	private TreeSet<Integer> findRemainingVal(int i, int j) {
+		
 		
 		// Variable(s)
 		int bRow = i / SUBSIZE;

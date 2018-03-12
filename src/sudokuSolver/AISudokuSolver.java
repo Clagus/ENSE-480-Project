@@ -34,7 +34,9 @@ public class AISudokuSolver {
         
         // MRV Algorithm //
         puzzleMRV = MRV.convertPuzzle2D(puzzle);
-        MRV.fillPuzzle(puzzleMRV); 
+        MRV test = new MRV(puzzleMRV);
+        test.fillPuzzle();
+        //MRV.fillPuzzle(puzzleMRV); 
 
         
         System.exit(0); // End Program
