@@ -14,6 +14,7 @@ public class AISudokuSolver {
     public static final int SIZE = 9;
     public static final int CELLS = 81;
     public static int backtrackerIterations;
+    public static int mrvIterations;
     
     // main Function: 
     public static void main( String[] args ) {

@@ -17,23 +17,26 @@ public class MRV {
 	public static void fillPuzzle(int[][] puzzle) {
 		
 		// Variable(s)
-		//int puzzle2D[][];
 		TreeSet<Integer> remainingPossibleVal = null;
 		TreeSet<Integer> temp;
 		int minimum = Integer.MAX_VALUE;
 		int minimumCol = -1;
 		int minimumRow = -1;
 
+		AISudokuSolver.mrvIterations++; // Increment iteration counter for comparison.
 		
 		// TEST LINE
 		print2D(puzzle);
-		System.out.println("");
+		System.out.println("\n" + AISudokuSolver.mrvIterations + "\n");
 		
 		if (fill == CELLS) {
+			System.out.println("Solved");
 			print2D(puzzle);
-			System.exit(0);
+			//System.exit(0);
 			return;
 		}
+		
+		
 		
 		// Find empty cell with MRV.
 		for (int i = 0; i < SIZE; i++) {
@@ -55,23 +58,21 @@ public class MRV {
 		
 		// Try possible values to fill puzzle.
 		for (Integer x:remainingPossibleVal) {
-			puzzle[minimumRow][minimumCol] = x;
 			
+			// Set
+			puzzle[minimumRow][minimumCol] = x;
 			r[minimumRow][x] = true;
 			c[minimumCol][x] = true;
 			b[minimumRow / SUBSIZE][minimumCol / SUBSIZE][x] = true;
 			
 			fill++;
-			
 			fillPuzzle(puzzle);
-			
 			fill--;
 			
 			// Reset
 			b[minimumRow / SUBSIZE][minimumCol / SUBSIZE][x] = false;
 			c[minimumCol][x] = false;
 			r[minimumRow][x] = false;
-			
 			puzzle[minimumRow][minimumCol] = 0;
 		}
 		
@@ -134,8 +135,9 @@ public class MRV {
 	
 	  public static void print2D(int[][] puzzle){
 		    for(int i = 0; i < SIZE; i++){
+		    	System.out.print("| "); // Left line border.
 		      for(int j = 0; j < SIZE; j++){
-		        System.out.print(puzzle[i][j] + " ");
+		    	  System.out.print(puzzle[i][j] + " | "); // Right border.
 		      }
 		      System.out.println();
 		    }
