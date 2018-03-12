@@ -11,6 +11,7 @@ public class Backtracker {
 	public static final int SUBSIZE = 3;
     public static final int SIZE = 9;
     public static final int CELLS = 81;
+    public static int attemptCounter = 1;
     
     // backtrackerSolver Function: Runs the algorithm and displays success/failure to the user.
     public static void backtrackerSolver(int puzzle[]) {
@@ -85,12 +86,21 @@ public class Backtracker {
 			}
 			
 			AISudokuSolver.backtrackerIterations++; // Increment iteration counter for comparison.
-			
-			// Test lines to print puzzle as it solves.
-			//AISudokuSolver.printPuzzle(puzzle);
-			//System.out.println(""); // Spacer
+			progressPrint(puzzle); // Prints progress.
 		}
 		
 		return false;
+	}
+	
+	// progressPrint Function: Prints out the steps of the backtracking algorithm. 
+	public static void progressPrint(int[] puzzle) {
+		System.out.println("Attempt " + attemptCounter + ":");
+		attemptCounter++;
+		AISudokuSolver.printPuzzle(puzzle);
+		System.out.println(""); // Spacer
+		
+		// Test lines.
+	    System.out.print("\033[H\033[2J");  
+	    System.out.flush(); 
 	}
 }
