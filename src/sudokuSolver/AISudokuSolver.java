@@ -14,12 +14,14 @@ public class AISudokuSolver {
     public static final int SIZE = 9;
     public static final int CELLS = 81;
     public static int backtrackerIterations;
+    public static int mrvIterations;
     
     // main Function: 
     public static void main( String[] args ) {
 
         // Variable(s)
         int puzzle[];
+        int puzzleMRV[][];
 
         //puzzle = manualPuzzleInput();
         puzzle = testPuzzles();
@@ -28,7 +30,12 @@ public class AISudokuSolver {
         System.out.println("-------------------------------------\n"); // Spacer
         
         // Backtracker Algorithm // 
-        Backtracker.backtrackerSolver(puzzle);
+        //Backtracker.backtrackerSolver(puzzle);
+        
+        // MRV Algorithm //
+        puzzleMRV = MRV.convertPuzzle2D(puzzle);
+        MRV test = new MRV(puzzleMRV);
+        test.fillPuzzle();
 
         
         System.exit(0); // End Program
