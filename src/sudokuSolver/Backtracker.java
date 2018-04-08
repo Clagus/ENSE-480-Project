@@ -86,7 +86,9 @@ public class Backtracker {
 			}
 			
 			AISudokuSolver.backtrackerIterations++; // Increment iteration counter for comparison.
-			//progressPrint(puzzle); // Prints progress.
+			if (AISudokuSolver.viewSolve) {
+				progressPrint(puzzle); // Prints progress.
+			}
 		}
 		
 		return false;
@@ -98,9 +100,5 @@ public class Backtracker {
 		attemptCounter++;
 		AISudokuSolver.printPuzzle(puzzle);
 		System.out.println(""); // Spacer
-		
-		// Test lines.
-	    //System.out.print("\033[H\033[2J");  
-	    //System.out.flush(); 
 	}
 }

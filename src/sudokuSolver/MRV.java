@@ -50,9 +50,11 @@ public class MRV {
 		int minimumRow = -1;
 
 		
-		// TEST LINE
-		print2D(puzzle);
-		System.out.println("\n" + AISudokuSolver.mrvIterations + "\n");
+		if (AISudokuSolver.viewSolve) {
+			print2D(puzzle);
+			System.out.println("\n" + AISudokuSolver.mrvIterations + "\n");
+		}
+
 		AISudokuSolver.mrvIterations++; // Increment iteration counter for comparison.
 		
 		if (fill == CELLS) {

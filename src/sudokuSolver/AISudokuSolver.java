@@ -15,27 +15,43 @@ public class AISudokuSolver {
     public static final int CELLS = 81;
     public static int backtrackerIterations;
     public static int mrvIterations;
+    public static boolean viewSolve = false;
     
     // main Function: 
     public static void main( String[] args ) {
 
         // Variable(s)
-        int puzzle[];
-        int puzzleMRV[][];
+        int puzzle[] = null;
+        int choice;
+        Scanner input = new Scanner(System.in);
+        
+        
+        // Puzzle Prompt //
+        System.out.println("Would you like to enter a puzzle or use a test puzzle?\n"
+        		+ "	1. Manual Input\n"
+        		+ "	2. Test Puzzle\n");
+        
+        // Choice input with invalid input checking.
+        do {
+            System.out.print("Choice: "); // Input Prompt
+            while (!input.hasNextInt()) {
+                    System.out.println("Please enter one of the two choice numbers."); // Invalid input prompt.
+                    System.out.print("Choice: ");
+                    input.next();
+            }
+            choice = input.nextInt();
 
-        //puzzle = manualPuzzleInput();
-        puzzle = testPuzzles();
+        } while (choice <= 0); 
+
+        switch (choice) {
+            case 1: puzzle = manualPuzzleInput();	
+            case 2: puzzle = testPuzzles();		 
+        }
 
         printPuzzle(puzzle);
         System.out.println("-------------------------------------\n"); // Spacer
         
-        // Backtracker Algorithm // 
-        //Backtracker.backtrackerSolver(puzzle);
-        
-        // MRV Algorithm //
-        puzzleMRV = MRV.convertPuzzle2D(puzzle);
-        MRV test = new MRV(puzzleMRV);
-        test.fillPuzzle();
+        solvePuzzle(puzzle);
 
         
         System.exit(0); // End Program
@@ -136,12 +152,12 @@ public class AISudokuSolver {
         } while (choice <= 0); 
 
         switch (choice) {
-            case 1: System.out.println("\n--- EASY PUZZLE ---");         input.close(); return puzzleEasy;
-            case 2: System.out.println("\n--- INTERMEDIATE PUZZLE ---"); input.close(); return puzzleIntermediate;
-            case 3: System.out.println("\n--- DIFFICULT PUZZLE ---");    input.close(); return puzzleDifficult;
+            case 1: System.out.println("\n--- EASY PUZZLE ---");          return puzzleEasy;
+            case 2: System.out.println("\n--- INTERMEDIATE PUZZLE ---");  return puzzleIntermediate;
+            case 3: System.out.println("\n--- DIFFICULT PUZZLE ---");     return puzzleDifficult;
         }
         
-        input.close();
+        
         return puzzleEasy;
     }
 
@@ -159,7 +175,7 @@ public class AISudokuSolver {
             puzzle[i] = input.nextInt();
         }
 
-        input.close();
+        
 
         return puzzle;
     } 
@@ -180,4 +196,66 @@ public class AISudokuSolver {
             System.out.println(""); // Line spacer.
         }
     }
+    
+    // solvePuzzle Function: 
+    public static void solvePuzzle(int[] puzzleOrig) {
+    	
+    	// Variable(s)
+    	int[] puzzleBT = puzzleOrig;
+        int puzzleMRV[][] = MRV.convertPuzzle2D(puzzleOrig);;
+        Scanner input = new Scanner(System.in);
+        int choice;
+        
+        // Printout Prompt //
+        System.out.println("Would you like to view the solving process?\n"
+        		+ "	1. Yes\n"
+        		+ "	2. No\n");
+        
+        // Choice input with invalid input checking.
+        do {
+            System.out.print("Choice: "); // Input Prompt
+            while (!input.hasNextInt()) {
+                    System.out.println("Please enter one of the two choice numbers."); // Invalid input prompt.
+                    System.out.print("Choice: ");
+                    input.next();
+            }
+            choice = input.nextInt();
+
+        } while (choice <= 0); 
+
+        switch (choice) {
+            case 1: viewSolve = true;	
+            case 2: viewSolve = false; 
+        }
+        
+        
+        // Backtracker Algorithm // 
+        Backtracker.backtrackerSolver(puzzleBT);
+        
+        // MRV Algorithm //
+        MRV mrv = new MRV(puzzleMRV);
+        mrv.fillPuzzle();
+        
+        compareResults();
+    }
+    
+    public static void compareResults() {
+    	
+    	// Variable(s)
+    	double percentDifference;
+    	
+    	//percentDifference = ((backtrackerIterations - mrvIterations) / mrvIterations) * 100;
+    	percentDifference = ((mrvIterations - backtrackerIterations) / backtrackerIterations) * 100;
+    	
+    	// Output
+    	System.out.println("\n-------------------------------------");
+    	System.out.println("| RESULTS:                           |");
+    	System.out.println("| 	Backtracker:   " + backtrackerIterations + " Iterations |");
+    	System.out.println("| 	MRV Heuristic: " + mrvIterations + " Iterations   |");
+    	
+    	if (backtrackerIterations > mrvIterations) {
+    		System.out.println("| " + percentDifference + " |");
+    	}
+    }
+    
 }
