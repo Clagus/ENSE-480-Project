@@ -9,6 +9,7 @@ package sudokuSolver;
 // Libraries
 import java.util.Scanner;
 
+
 public class AISudokuSolver {
 
     // Global Variables
@@ -27,6 +28,10 @@ public class AISudokuSolver {
         int choice;
         Scanner input = new Scanner(System.in);
         
+        // Intro
+        System.out.println("--------------------");
+        System.out.println("| AI Sudoku Solver |");
+        System.out.println("--------------------\n");
         
         // Puzzle Prompt //
         System.out.println("Would you like to enter a puzzle or use a test puzzle?\n"
@@ -59,7 +64,7 @@ public class AISudokuSolver {
         System.exit(0); // End Program
     }
 
-    // testPuzzles Function:
+    // testPuzzles Function: A set of three puzzles of varying difficulty that can be returned based on user input.
     public static int[] testPuzzles() {
         
         // Variable(s)
@@ -245,18 +250,28 @@ public class AISudokuSolver {
     	
     	// Variable(s)
     	double percentDifference;
-    	
-    	//percentDifference = ((backtrackerIterations - mrvIterations) / mrvIterations) * 100;
-    	percentDifference = ((mrvIterations - backtrackerIterations) / backtrackerIterations) * 100;
+    	double btI = (double)backtrackerIterations;
+    	double mrvI = (double)mrvIterations;
     	
     	// Output
     	System.out.println("\n---------------------------------------");
-    	System.out.println("| RESULTS:                            |");
-    	System.out.println("| 	Backtracker:   " + backtrackerIterations + " Iterations |");
-    	System.out.println("| 	MRV Heuristic: " + mrvIterations + " Iterations  |");
+    	System.out.println("RESULTS:                            ");
+    	System.out.println("	Backtracker:   " + backtrackerIterations + " Iterations");
+    	System.out.println(" 	MRV Heuristic: " + mrvIterations + " Iterations");
     	
     	if (backtrackerIterations > mrvIterations) {
-    		System.out.print("| " + percentDifference + " |");
+    		percentDifference = ((Math.abs(btI - mrvI) / mrvI)) * 100; 
+    		
+    		System.out.print("\nBacktracker required ");
+    		System.out.printf("%.1f", percentDifference);
+    		System.out.print("%\nmore iterations than MRV.");
+    		
+    	} else if (mrvIterations > backtrackerIterations) {
+    		percentDifference = ((Math.abs(mrvI - btI) / btI)) * 100; 
+    		
+    		System.out.print("\nMRV required ");
+    		System.out.printf("%.1f", percentDifference);
+    		System.out.print("%\nmore iterations than Backtracker.");
     	}
     	
     	System.out.println("\n---------------------------------------");
