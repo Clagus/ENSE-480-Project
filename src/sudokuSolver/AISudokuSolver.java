@@ -205,7 +205,7 @@ public class AISudokuSolver {
         }
     }
     
-    // solvePuzzle Function: 
+    // solvePuzzle Function: Controller function that calls the two algorithm classes. 
     public static void solvePuzzle(int[] puzzleOrig) {
     	
     	// Variable(s)
@@ -241,11 +241,12 @@ public class AISudokuSolver {
         
         // MRV Algorithm //
         MRV mrv = new MRV(puzzleMRV);
-        mrv.fillPuzzle();
+        mrv.MRVAlgorithm();
         
         compareResults();
     }
     
+    // compareResults Function: Calculates and outputs the difference between the iteration counts in a percentage.
     public static void compareResults() {
     	
     	// Variable(s)

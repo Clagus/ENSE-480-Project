@@ -17,7 +17,7 @@ public class Backtracker {
     // backtrackerSolver Function: Runs the algorithm and displays success/failure to the user.
     public static void backtrackerSolver(int puzzle[]) {
         if (backtrackerAlgorithm(puzzle)) {
-        	System.out.println("\n--- Puzzle Solved! ---\n"
+        	System.out.println("\n--- BT Puzzle Solved! ---\n"
         			           + "Iteration Count: " + AISudokuSolver.backtrackerIterations 
         			           + "\nSolution:");
         	AISudokuSolver.printPuzzle(puzzle);
