@@ -1,9 +1,10 @@
-package sudokuSolver;
 /* ENSE 480 Final Project
  * AISudokuSolver.java
  * Colin Lagus
  * 200315561 
 */
+
+package sudokuSolver;
 
 // Libraries
 import java.util.Scanner;
@@ -17,7 +18,8 @@ public class AISudokuSolver {
     public static int mrvIterations;
     public static boolean viewSolve = false;
     
-    // main Function: 
+    
+    // main Function 
     public static void main( String[] args ) {
 
         // Variable(s)
@@ -137,7 +139,7 @@ public class AISudokuSolver {
                                     9, 0, 3, 0, 0, 0, 0, 0, 0,
                                     0, 2, 0, 0, 0, 0, 1, 0, 0};
 
-        System.out.println("Which puzzle would you like to test?\n   1. Easy\n   2. Intermediate\n   3. Difficult\n"); // Prompt
+        System.out.println("\nWhich puzzle would you like to test?\n   1. Easy\n   2. Intermediate\n   3. Difficult\n"); // Prompt
         
         // Choice input with invalid input checking.
         do {
@@ -166,7 +168,8 @@ public class AISudokuSolver {
 
         // Variable(s)
         int puzzle[] = new int[CELLS];
-        Scanner input = new Scanner(System.in);
+        
+		Scanner input = new Scanner(System.in);
 
         System.out.println( "Enter the values for your puzzle, 0 represents empty cells that need to be solved.\n" ); // Prompt
 
@@ -228,7 +231,6 @@ public class AISudokuSolver {
             case 2: viewSolve = false; 
         }
         
-        
         // Backtracker Algorithm // 
         Backtracker.backtrackerSolver(puzzleBT);
         
@@ -248,14 +250,16 @@ public class AISudokuSolver {
     	percentDifference = ((mrvIterations - backtrackerIterations) / backtrackerIterations) * 100;
     	
     	// Output
-    	System.out.println("\n-------------------------------------");
-    	System.out.println("| RESULTS:                           |");
+    	System.out.println("\n---------------------------------------");
+    	System.out.println("| RESULTS:                            |");
     	System.out.println("| 	Backtracker:   " + backtrackerIterations + " Iterations |");
-    	System.out.println("| 	MRV Heuristic: " + mrvIterations + " Iterations   |");
+    	System.out.println("| 	MRV Heuristic: " + mrvIterations + " Iterations  |");
     	
     	if (backtrackerIterations > mrvIterations) {
-    		System.out.println("| " + percentDifference + " |");
+    		System.out.print("| " + percentDifference + " |");
     	}
+    	
+    	System.out.println("\n---------------------------------------");
     }
     
 }

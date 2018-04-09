@@ -1,3 +1,9 @@
+/* ENSE 480 Final Project
+ * MRV.java
+ * Colin Lagus
+ * 200315561 
+*/
+
 package sudokuSolver;
 
 // Libraries
@@ -58,9 +64,11 @@ public class MRV {
 		AISudokuSolver.mrvIterations++; // Increment iteration counter for comparison.
 		
 		if (fill == CELLS) {
-			System.out.println("Solved");
+			System.out.println("\n--- Puzzle Solved! ---\n"
+			           + "Iteration Count: " + AISudokuSolver.mrvIterations 
+			           + "\nSolution:");
 			print2D(puzzle);
-			//System.exit(0);
+
 			return;
 		}
 		

@@ -1,9 +1,10 @@
-package sudokuSolver;
 /* ENSE 480 Final Project
  * Backtracker.java
  * Colin Lagus
  * 200315561 
 */
+
+package sudokuSolver;
 
 public class Backtracker {
 	
@@ -16,10 +17,11 @@ public class Backtracker {
     // backtrackerSolver Function: Runs the algorithm and displays success/failure to the user.
     public static void backtrackerSolver(int puzzle[]) {
         if (backtrackerAlgorithm(puzzle)) {
-        	System.out.println("--- Puzzle Solved! ---\n"
+        	System.out.println("\n--- Puzzle Solved! ---\n"
         			           + "Iteration Count: " + AISudokuSolver.backtrackerIterations 
-        			           + "\nSolution:\n");
+        			           + "\nSolution:");
         	AISudokuSolver.printPuzzle(puzzle);
+        	System.out.println(""); // Spacer
         } else {
         	System.out.println("The puzzle could not be solved.");
         }
