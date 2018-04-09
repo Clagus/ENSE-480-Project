@@ -1,12 +1,14 @@
-package sudokuSolver;
 /* ENSE 480 Final Project
  * AISudokuSolver.java
  * Colin Lagus
  * 200315561 
 */
 
+package sudokuSolver;
+
 // Libraries
 import java.util.Scanner;
+
 
 public class AISudokuSolver {
 
@@ -15,33 +17,54 @@ public class AISudokuSolver {
     public static final int CELLS = 81;
     public static int backtrackerIterations;
     public static int mrvIterations;
+    public static boolean viewSolve = false;
     
-    // main Function: 
+    
+    // main Function 
     public static void main( String[] args ) {
 
         // Variable(s)
-        int puzzle[];
-        int puzzleMRV[][];
+        int puzzle[] = null;
+        int choice;
+        Scanner input = new Scanner(System.in);
+        
+        // Intro
+        System.out.println("--------------------");
+        System.out.println("| AI Sudoku Solver |");
+        System.out.println("--------------------\n");
+        
+        // Puzzle Prompt //
+        System.out.println("Would you like to enter a puzzle or use a test puzzle?\n"
+        		+ "	1. Manual Input\n"
+        		+ "	2. Test Puzzle\n");
+        
+        // Choice input with invalid input checking.
+        do {
+            System.out.print("Choice: "); // Input Prompt
+            while (!input.hasNextInt()) {
+                    System.out.println("Please enter one of the two choice numbers."); // Invalid input prompt.
+                    System.out.print("Choice: ");
+                    input.next();
+            }
+            choice = input.nextInt();
 
-        //puzzle = manualPuzzleInput();
-        puzzle = testPuzzles();
+        } while (choice <= 0); 
+
+        switch (choice) {
+            case 1: puzzle = manualPuzzleInput();	
+            case 2: puzzle = testPuzzles();		 
+        }
 
         printPuzzle(puzzle);
         System.out.println("-------------------------------------\n"); // Spacer
         
-        // Backtracker Algorithm // 
-        //Backtracker.backtrackerSolver(puzzle);
-        
-        // MRV Algorithm //
-        puzzleMRV = MRV.convertPuzzle2D(puzzle);
-        MRV test = new MRV(puzzleMRV);
-        test.fillPuzzle();
+        solvePuzzle(puzzle);
 
         
         System.exit(0); // End Program
     }
 
-    // testPuzzles Function:
+    // testPuzzles Function: A set of three puzzles of varying difficulty that can be returned based on user input.
     public static int[] testPuzzles() {
         
         // Variable(s)
@@ -121,7 +144,7 @@ public class AISudokuSolver {
                                     9, 0, 3, 0, 0, 0, 0, 0, 0,
                                     0, 2, 0, 0, 0, 0, 1, 0, 0};
 
-        System.out.println("Which puzzle would you like to test?\n   1. Easy\n   2. Intermediate\n   3. Difficult\n"); // Prompt
+        System.out.println("\nWhich puzzle would you like to test?\n   1. Easy\n   2. Intermediate\n   3. Difficult\n"); // Prompt
         
         // Choice input with invalid input checking.
         do {
@@ -136,12 +159,12 @@ public class AISudokuSolver {
         } while (choice <= 0); 
 
         switch (choice) {
-            case 1: System.out.println("\n--- EASY PUZZLE ---");         input.close(); return puzzleEasy;
-            case 2: System.out.println("\n--- INTERMEDIATE PUZZLE ---"); input.close(); return puzzleIntermediate;
-            case 3: System.out.println("\n--- DIFFICULT PUZZLE ---");    input.close(); return puzzleDifficult;
+            case 1: System.out.println("\n--- EASY PUZZLE ---");          return puzzleEasy;
+            case 2: System.out.println("\n--- INTERMEDIATE PUZZLE ---");  return puzzleIntermediate;
+            case 3: System.out.println("\n--- DIFFICULT PUZZLE ---");     return puzzleDifficult;
         }
         
-        input.close();
+        
         return puzzleEasy;
     }
 
@@ -150,7 +173,8 @@ public class AISudokuSolver {
 
         // Variable(s)
         int puzzle[] = new int[CELLS];
-        Scanner input = new Scanner(System.in);
+        
+		Scanner input = new Scanner(System.in);
 
         System.out.println( "Enter the values for your puzzle, 0 represents empty cells that need to be solved.\n" ); // Prompt
 
@@ -159,7 +183,7 @@ public class AISudokuSolver {
             puzzle[i] = input.nextInt();
         }
 
-        input.close();
+        
 
         return puzzle;
     } 
@@ -180,4 +204,78 @@ public class AISudokuSolver {
             System.out.println(""); // Line spacer.
         }
     }
+    
+    // solvePuzzle Function: Controller function that calls the two algorithm classes. 
+    public static void solvePuzzle(int[] puzzleOrig) {
+    	
+    	// Variable(s)
+    	int[] puzzleBT = puzzleOrig;
+        int puzzleMRV[][] = MRV.convertPuzzle2D(puzzleOrig);;
+        Scanner input = new Scanner(System.in);
+        int choice;
+        
+        // Printout Prompt //
+        System.out.println("Would you like to view the solving process?\n"
+        		+ "	1. Yes\n"
+        		+ "	2. No\n");
+        
+        // Choice input with invalid input checking.
+        do {
+            System.out.print("Choice: "); // Input Prompt
+            while (!input.hasNextInt()) {
+                    System.out.println("Please enter one of the two choice numbers."); // Invalid input prompt.
+                    System.out.print("Choice: ");
+                    input.next();
+            }
+            choice = input.nextInt();
+
+        } while (choice <= 0); 
+
+        switch (choice) {
+            case 1: viewSolve = true;	
+            case 2: viewSolve = false; 
+        }
+        
+        // Backtracker Algorithm // 
+        Backtracker.backtrackerSolver(puzzleBT);
+        
+        // MRV Algorithm //
+        MRV mrv = new MRV(puzzleMRV);
+        mrv.MRVAlgorithm();
+        
+        compareResults();
+    }
+    
+    // compareResults Function: Calculates and outputs the difference between the iteration counts in a percentage.
+    public static void compareResults() {
+    	
+    	// Variable(s)
+    	double percentDifference;
+    	double btI = (double)backtrackerIterations;
+    	double mrvI = (double)mrvIterations;
+    	
+    	// Output
+    	System.out.println("\n---------------------------------------");
+    	System.out.println("RESULTS:                            ");
+    	System.out.println("	Backtracker:   " + backtrackerIterations + " Iterations");
+    	System.out.println(" 	MRV Heuristic: " + mrvIterations + " Iterations");
+    	
+    	if (backtrackerIterations > mrvIterations) {
+    		percentDifference = ((Math.abs(btI - mrvI) / mrvI)) * 100; 
+    		
+    		System.out.print("\nBacktracker required ");
+    		System.out.printf("%.1f", percentDifference);
+    		System.out.print("%\nmore iterations than MRV.");
+    		
+    	} else if (mrvIterations > backtrackerIterations) {
+    		percentDifference = ((Math.abs(mrvI - btI) / btI)) * 100; 
+    		
+    		System.out.print("\nMRV required ");
+    		System.out.printf("%.1f", percentDifference);
+    		System.out.print("%\nmore iterations than Backtracker.");
+    	}
+    	
+    	System.out.println("\n---------------------------------------");
+    }
+    
 }

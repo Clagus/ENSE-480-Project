@@ -1,3 +1,9 @@
+/* ENSE 480 Final Project
+ * MRV.java
+ * Colin Lagus
+ * 200315561 
+*/
+
 package sudokuSolver;
 
 // Libraries
@@ -40,8 +46,8 @@ public class MRV {
         }
       }
     
-    
-	public void fillPuzzle() {
+    // MRVAlgorithm Function: Core recursive algorithm for filling the puzzle with values. 
+	public void MRVAlgorithm() {
 		
 		// Variable(s)
 		TreeSet<Integer> remainingPossibleVal = null;
@@ -50,15 +56,19 @@ public class MRV {
 		int minimumRow = -1;
 
 		
-		// TEST LINE
-		print2D(puzzle);
-		System.out.println("\n" + AISudokuSolver.mrvIterations + "\n");
+		if (AISudokuSolver.viewSolve) {
+			print2D(puzzle);
+			System.out.println("\n" + AISudokuSolver.mrvIterations + "\n");
+		}
+
 		AISudokuSolver.mrvIterations++; // Increment iteration counter for comparison.
 		
 		if (fill == CELLS) {
-			System.out.println("Solved");
+			System.out.println("\n--- MRV Puzzle Solved! ---\n"
+			           + "Iteration Count: " + AISudokuSolver.mrvIterations 
+			           + "\nSolution:");
 			print2D(puzzle);
-			//System.exit(0);
+
 			return;
 		}
 		
@@ -90,7 +100,7 @@ public class MRV {
 			b[minimumRow / SUBSIZE][minimumCol / SUBSIZE][x] = true;
 			
 			fill++;
-			fillPuzzle();
+			MRVAlgorithm();
 			fill--;
 			
 			// Reset
@@ -102,7 +112,7 @@ public class MRV {
 		
 	}
 	
-	// COMMENT ME
+	// findRemainingVal Function: Finds possible remaining values for the puzzle.
 	private TreeSet<Integer> findRemainingVal(int i, int j){
 		
 		// Variable(a)
@@ -140,7 +150,7 @@ public class MRV {
 		return possibleVals;
 	}
 
-	// COMMENT ME
+	// convertPuzzle2D Function: Takes the 1D arrays from the test puzzles and converts to 2D.
 	public static int[][] convertPuzzle2D(int[] puzzle) {
 		
 		// Variable(s)
@@ -155,7 +165,7 @@ public class MRV {
 		return temp;
 	}
 	
-	// COMMENT ME
+	// print2D Function: Prints out a 2D array in the Sudoku grid format.
 	public static void print2D(int[][] puzzle){
 		for(int i = 0; i < SIZE; i++){
 			System.out.print("| "); // Left line border.
