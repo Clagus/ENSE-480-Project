@@ -231,9 +231,10 @@ public class AISudokuSolver {
 
         } while (choice <= 0); 
 
-        switch (choice) {
-            case 1: viewSolve = true;	
-            case 2: viewSolve = false; 
+        if (choice == 1) {
+        	viewSolve = true;
+        } else {
+        	viewSolve = false;
         }
         
         // Backtracker Algorithm // 

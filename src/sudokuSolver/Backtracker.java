@@ -88,7 +88,8 @@ public class Backtracker {
 			}
 			
 			AISudokuSolver.backtrackerIterations++; // Increment iteration counter for comparison.
-			if (AISudokuSolver.viewSolve) {
+			
+			if (AISudokuSolver.viewSolve == true) {
 				progressPrint(puzzle); // Prints progress.
 			}
 		}
