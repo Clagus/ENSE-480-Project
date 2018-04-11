@@ -56,6 +56,8 @@ public class MRV {
 		int minimumRow = -1;
 
 		
+		AISudokuSolver.mrvIterations++; // Increment iteration counter for comparison.
+		
 		if (AISudokuSolver.viewSolve == true) {
 			progressPrint(puzzle); // Prints progress.
 		}
@@ -174,12 +176,11 @@ public class MRV {
 		}
 	}
 	
-	// progressPrint Function: Prints out the steps of the MRV algorithm.
+	// progressPrint Function: Prints out the steps of the MRV algorithm. 
 	public static void progressPrint(int[][] puzzle) {
-		System.out.println("\nMRV Attempt " 
+		System.out.println("Attempt " 
 							+ AISudokuSolver.mrvIterations 
 							+ ":");
-		AISudokuSolver.mrvIterations++; // Increment iteration counter for comparison.
 		print2D(puzzle);
 	}
 }
