@@ -99,7 +99,7 @@ public class Backtracker {
 	
 	// progressPrint Function: Prints out the steps of the backtracking algorithm. 
 	public static void progressPrint(int[] puzzle) {
-		System.out.println("Attempt " + attemptCounter + ":");
+		System.out.println("BT Attempt " + attemptCounter + ":");
 		attemptCounter++;
 		AISudokuSolver.printPuzzle(puzzle);
 		System.out.println(""); // Spacer

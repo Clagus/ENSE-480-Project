@@ -56,20 +56,20 @@ public class MRV {
 		int minimumRow = -1;
 
 		
-		if (AISudokuSolver.viewSolve) {
-			print2D(puzzle);
-			System.out.println("\n" + AISudokuSolver.mrvIterations + "\n");
-		}
-
 		AISudokuSolver.mrvIterations++; // Increment iteration counter for comparison.
 		
-		if (fill == CELLS) {
+		if (AISudokuSolver.viewSolve == true) {
+			progressPrint(puzzle); // Prints progress.
+		}
+
+		if (fill == CELLS) { // Puzzle solved, exit loop condition.
 			System.out.println("\n--- MRV Puzzle Solved! ---\n"
-			           + "Iteration Count: " + AISudokuSolver.mrvIterations 
+			           + "Iteration Count: " 
+			           + AISudokuSolver.mrvIterations 
 			           + "\nSolution:");
 			print2D(puzzle);
 
-			return;
+			AISudokuSolver.compareResults();
 		}
 		
 		// Find empty cell with MRV.
@@ -174,5 +174,13 @@ public class MRV {
 		    }
 		    System.out.println();
 		}
+	}
+	
+	// progressPrint Function: Prints out the steps of the MRV algorithm. 
+	public static void progressPrint(int[][] puzzle) {
+		System.out.println("\nMRV Attempt " 
+							+ AISudokuSolver.mrvIterations 
+							+ ":");
+		print2D(puzzle);
 	}
 }
