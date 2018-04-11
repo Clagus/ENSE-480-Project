@@ -277,6 +277,6 @@ public class AISudokuSolver {
     	}
     	
     	System.out.println("\n---------------------------------------");
+    	System.exit(0); // Ends program after result comparison.
     }
-    
 }
