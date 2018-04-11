@@ -178,7 +178,7 @@ public class MRV {
 	
 	// progressPrint Function: Prints out the steps of the MRV algorithm. 
 	public static void progressPrint(int[][] puzzle) {
-		System.out.println("Attempt " 
+		System.out.println("\nMRV Attempt " 
 							+ AISudokuSolver.mrvIterations 
 							+ ":");
 		print2D(puzzle);
